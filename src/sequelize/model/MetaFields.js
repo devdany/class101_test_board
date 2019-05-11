@@ -7,11 +7,11 @@ const metaFields = {
     },
     update_dt: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
     },
     delete_dt: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
     }
 }
 
