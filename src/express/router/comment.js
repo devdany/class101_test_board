@@ -4,6 +4,18 @@ const commentService = require('../../sequelize/service/CommentService');
 const postService = require('../../sequelize/service/PostService');
 const userService = require('../../sequelize/service/UserService');
 const logService = require('../../sequelize/service/LogService');
+const {getArrayPages} = require('../../lib/pagination');
+
+const page_amount = 5;
+
+router.get('/:current_page/:limit', async (req, res) => {
+    const {current_page, limit} = req.params;
+    const start = (current_page-1)*limit;
+
+    const comments = await Promise.resolve(commentService.findPaging(start, Number(limit)));
+
+    res.send({comments: comments})
+})
 
 router.post('/', async (req, res) => {
     const {userId, post_id, content} = req.body;
@@ -16,7 +28,7 @@ router.post('/', async (req, res) => {
         if(!writer){
             res.send({result: false, detail: '해당 유저가 존재하지 않습니다.'});
         }else{
-            const post = await Promise.resolve(postService.findOne(post_id));
+            const post = await Promise.resolve(postService.isExistPost(post_id));
 
             if(!post){
                 res.send({result: false, detail: '해당 포스팅이 존재하지 않습니다.'});

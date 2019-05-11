@@ -1,4 +1,11 @@
+#data for render
+type PostDetail{
+    post: Post!
+    page_count: Int!
+    pages: [Int!]!
+}
 
+#model
 type User{
     id: Int
     user_id:String!
