@@ -77,5 +77,13 @@ module.exports = {
         where:{
             id: post_id
         }
-    })
+    }),
+    findByUserId: (user_id) => {
+        return Post.findAll({
+            where:{
+                writer: user_id,
+                is_delete: false
+            }
+        })
+    }
 }

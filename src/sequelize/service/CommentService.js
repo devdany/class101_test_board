@@ -41,6 +41,14 @@ module.exports = {
                 }
             ]
         })
+    },
+    findByUserId: (user_id) => {
+        return Comment.findAll({
+            where:{
+                writer: user_id,
+                is_delete: false
+            }
+        })
     }
 
 

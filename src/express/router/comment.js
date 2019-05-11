@@ -4,9 +4,6 @@ const commentService = require('../../sequelize/service/CommentService');
 const postService = require('../../sequelize/service/PostService');
 const userService = require('../../sequelize/service/UserService');
 const logService = require('../../sequelize/service/LogService');
-const {getArrayPages} = require('../../lib/pagination');
-
-const page_amount = 5;
 
 router.get('/:current_page/:limit', async (req, res) => {
     const {current_page, limit} = req.params;
@@ -14,7 +11,7 @@ router.get('/:current_page/:limit', async (req, res) => {
 
     const comments = await Promise.resolve(commentService.findPaging(start, Number(limit)));
 
-    res.send({comments: comments})
+    res.send({result: true, data: {comments: comments}})
 })
 
 router.post('/', async (req, res) => {
