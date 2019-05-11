@@ -1,10 +1,4 @@
 
-type PostDetail{
-    post: Post!
-    comments: [Comment]!
-}
-
-
 type User{
     id: Int
     user_id:String!
@@ -14,15 +8,16 @@ type User{
 
 type Comment{
     id: Int
-    writer: User!
-    post: Post
+    comment_writer: User!
+    comment_post: Post
     content: String!
     create_dt: String
 }
 type Post{
     id: Int
-    writer: User
+    post_writer: User
     title: String!
     content: String!
     create_dt: String
+    comments: [Comment]!
 }

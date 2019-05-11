@@ -2,6 +2,7 @@ const {GraphQLServer} = require('graphql-yoga/dist/index');
 const dbConnector = require('./sequelize/connector');
 const schema = require('./graphql/schema');
 const logger = require('morgan');
+const bodyParser = require('body-parser');
 const PORT = process.env.PORT || 3000;
 
 dbConnector.authenticate()
@@ -50,6 +51,11 @@ const graphql_server = new GraphQLServer({
 const userRouter = require('./express/router/user');
 const postRouter = require('./express/router/post');
 const commentRouter = require('./express/router/comment');
+
+
+graphql_server.express.use(bodyParser.json())
+graphql_server.express.use(bodyParser.urlencoded({extended: false}))
+
 
 graphql_server.express.use('/user', userRouter);
 graphql_server.express.use('/post', postRouter);

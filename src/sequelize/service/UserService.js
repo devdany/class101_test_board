@@ -5,7 +5,7 @@ const User = require('../model/User')
 module.exports = {
     findByUserId: (userId) => User.findOne({
         where:{
-            userId: userId
+            user_id: userId
         }
     })
 }

@@ -1,9 +1,13 @@
 module.exports = {
     Mutation: {
         writePost: (_, args, {UserService, PostService, LogService}) => {
-            const {userId, title, content} = args;
+            const {user_id, title, content} = args;
 
-            return UserService.findByUserId(userId)
+            if(!title || !content){
+                throw Error('제목 및 내용을 입력해주세요.')
+            }
+
+            return UserService.findByUserId(user_id)
                 .then(user => {
                     if(!user){
                         throw Error('해당 유저가 존재하지 않습니다.')
@@ -12,7 +16,8 @@ module.exports = {
                     return PostService.writePost({
                         writer: user.dataValues.id,
                         title: title,
-                        content: content
+                        content: content,
+                        is_delete: false
                     })
                         .then(() => {
                             return true;
